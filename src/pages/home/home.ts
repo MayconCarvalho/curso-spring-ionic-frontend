@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, MenuController, NavController } from 'ionic-angular';
-import { AuthService } from '../../app/services/domain/auth.service';
+import { AuthService } from '../../app/services/auth.service';
 import { CredenciaisDTO } from '../../models/credenciais.dto';
 
 @IonicPage()
@@ -33,7 +33,7 @@ export class HomePage {
   login() {
     this.auth.authenticate(this.creds)
       .subscribe(response => {
-        console.log(response.headers.get('Authorization'));
+        this.auth.sucessfulLogin(response.headers.get('Authorization'));
         this.navCtrl.setRoot('CategoriasPage');
       },
       error => {});
