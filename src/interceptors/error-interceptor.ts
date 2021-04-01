@@ -3,6 +3,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS
 import { Observable } from "rxjs";
 import { StorageService } from "../app/services/storage.service";
 import { AlertController } from "ionic-angular";
+import { FieldMessage } from "../models/fileldMessage";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -12,32 +13,36 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req)
-        .catch((error, caught) => {
-            let errorObj = error;
-            if (errorObj.error) {
-                errorObj = errorObj.error;
-            }
-            if (!errorObj.status) {
-                errorObj = JSON.parse(errorObj);
-            }
-            console.log('Erro detectado pelo intercpetor: ');
-            console.log(errorObj);
+            .catch((error, caught) => {
+                let errorObj = error;
+                if (errorObj.error) {
+                    errorObj = errorObj.error;
+                }
+                if (!errorObj.status) {
+                    errorObj = JSON.parse(errorObj);
+                }
+                console.log('Erro detectado pelo intercpetor: ');
+                console.log(errorObj);
 
-            switch(errorObj.status) {
-                case 401:
-                    this.handle401();
-                    break;
+                switch (errorObj.status) {
+                    case 401:
+                        this.handle401();
+                        break;
 
-                case 403:
-                    this.handle403();
-                    break;
-                
-                default:
-                    this.handleDefaultError(errorObj);
-            }
+                    case 403:
+                        this.handle403();
+                        break;
 
-            return Observable.throw(errorObj);
-        }) as any;
+                    case 422:
+                        this.handle422(errorObj);
+                        break;
+
+                    default:
+                        this.handleDefaultError(errorObj);
+                }
+
+                return Observable.throw(errorObj);
+            }) as any;
     }
 
     handle403() {
@@ -48,6 +53,21 @@ export class ErrorInterceptor implements HttpInterceptor {
         let alert = this.alertCtrl.create({
             title: 'Erro 401: falha de autenticação',
             message: 'Email ou senha incorretos',
+            enableBackdropDismiss: false,
+            buttons: [
+                {
+                    text: 'Ok'
+                }
+            ]
+        });
+
+        alert.present();
+    }
+
+    handle422(errorObj) {
+        let alert = this.alertCtrl.create({
+            title: 'Erro 422: Validação',
+            message: this.listErrors(errorObj.errors),
             enableBackdropDismiss: false,
             buttons: [
                 {
@@ -72,6 +92,14 @@ export class ErrorInterceptor implements HttpInterceptor {
         });
 
         alert.present();
+    }
+
+    private listErrors(messages: FieldMessage[]): string {
+        let s: string = '';
+        for (var i = 0; i < messages.length; i++) {
+            s = s + '<p><strong>' + messages[i].fieldName + "</strong>: " + messages[i].message + '</p>';
+        }
+        return s;
     }
 }
 
