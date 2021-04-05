@@ -4,35 +4,20 @@ Parte frontend do estudo de caso usando Ionic 3.
 
 ### Imagens do app Ionic
 
-Tela de inicial de login  
-![login](./prints/login.png)
+Tela de inicial de login  | Menu  
+![login](./prints/login.png) ![menu](./prints/menu.png)
 
-Menu  
-![menu](./prints/menu.png)
+Lista de categorias de produtos  | Lista de produtos da categoria Informática  
+![categorias](./prints/categorias.png)    ![produtos](./prints/produtos.png)
 
-Lista de categorias de produtos  
-![categorias](./prints/categorias.png)
+Detalhes de um produto qualquer selecionado   |   Tela de carrinho de compras com alguns produtos selecionados  
+![produtos detalhes](./prints/produtos_detalhes.png) ![carrinho cheio](./prints/carrinho_cheio.png)
 
-Lista de produtos da categoria Informática  
-![produtos](./prints/produtos.png)
+Formas de pagamento  | Conferir pedido de compra  
+![formas pagamento](./prints/forma_pagamento.png)  ![conferir](./prints/conferir.png)
 
-Detalhes de um produto qualquer selecionado  
-![produtos detalhes](./prints/produtos_detalhes.png)
-
-Tela de carrinho de compras com alguns produtos selecionados  
-![carrinho cheio](./prints/carrinho_cheio.png)
-
-Formas de pagamento  
-![formas pagamento](./prints/forma_pagamento.png)
-
-Conferir pedido de compra  
-![conferir](./prints/conferir.png)
-
-Pedido registado com sucesso  
-![pedido registrado](./prints/pedido_registrado.png)
-
-Carrinho vazio  
-![carrinho vazio](./prints/carrinho_vazio.png)
+Pedido registado com sucesso  |     Carrinho vazio  
+![pedido registrado](./prints/pedido_registrado.png) ![carrinho vazio](./prints/carrinho_vazio.png)
 
 Tela de cadastro de usuários  
 ![signup](./prints/signup.png)
